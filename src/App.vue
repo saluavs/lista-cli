@@ -1,26 +1,53 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div class="formulario">
+    <img src="./assets/logo.png " alt="logo vue">
+      <div>
+          <label for="">Tarea </label>
+          <input v-model="nuevaLista"  placeholder="ingresa nueva tarea" >
+          <button @click="agregarTarea">Añade</button>
+          <Items msg="Listas" :tareas="tareas" @eliminarTarea="delTarea"></Items>
+      </div>
+  </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Items from './components/Items.vue'
 
 export default {
   name: 'App',
+  data(){
+    return{
+      tareas:[],
+      nuevaLista:"",
+    }
+  },
   components: {
-    HelloWorld
-  }
+    Items
+  },
+  methods: {
+    agregarTarea(){
+        this.tareas.push(this.nuevaLista)
+        this.nuevaLista = ""
+    },
+    delTarea(index){
+      this.tareas.splice(index,1)
+    }
+  },
 }
 </script>
 
+
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+    .formulario {
+        text-align: center;
+    }
+    input, button {
+        padding: 5px;
+    }
+    ul {
+        width: 30%;
+        margin: 0 auto;
+        text-align: left;
+        padding-left: 16em;
+    }
 </style>
